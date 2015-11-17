@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://192.168.0.201:8080/Transportadora/PublicacionMaestro?WSDL" uri="wsdl/192.168.0.201_8080/Transportadora/PublicacionMaestro.wsdl"/>
+    <system systemId="http://192.168.0.201:8080/Transportadora/PublicacionMaestro?xsd=1" uri="wsdl/192.168.0.201_8080/Transportadora/PublicacionMaestro.xsd_1.xsd"/>
+</catalog>
