@@ -23,14 +23,7 @@ public class FachadaDB {
     /**
      * Atributo que almacena la contraseña de la conexión
      */
-    private String clave;
-    
-    
-    /**
-     * Atributo que almacena la conexión con la base de datos.
-     */
-    private Connection conexion;
-    
+    private String clave;    
     
     /**
      * Atributo que almacena la dirección de conexión con la base de datos.
@@ -62,6 +55,7 @@ public class FachadaDB {
      * @return Retorna un objeto de tipo Connection
      */
     public Connection crearConexion() {
+        Connection conexion=null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conexion = (Connection) DriverManager.getConnection(url, usuario, clave);
@@ -78,9 +72,9 @@ public class FachadaDB {
     /**
      * metodo para cerrar la conexion a la base de datos
      */
-    public void cerrarConexion(){
+    public void cerrarConexion(Connection conexion){
         try {
-            this.conexion.close();
+            conexion.close();
             System.out.println("conexion cerrada conrrectamente");
         } catch (SQLException ex) {
             Logger.getLogger(FachadaDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,6 +89,8 @@ public class FachadaDB {
             con = crearConexion();
             st = con.createStatement();
             st.execute(query);
+            st.close();
+            cerrarConexion(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,13 +98,14 @@ public class FachadaDB {
     
     
     public ResultSet seleccionar(String query){
-        crearConexion();
-        Connection con = this.conexion;
+        Connection con = crearConexion();
         Statement st = null;
         ResultSet res = null;
         try {
             st = con.createStatement();
             res = st.executeQuery(query);
+            st.close();
+            cerrarConexion(con);
             return res;
         } catch (SQLException e) {
             e.printStackTrace();
